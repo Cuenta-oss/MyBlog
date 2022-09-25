@@ -1,10 +1,9 @@
-
-from cmath import log
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from .forms import userRegisterForm, loginUserForm
 # Create your views here.
 
 
@@ -25,14 +24,14 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 class registro_user(View):
     def get(self, request):
-        form = UserCreationForm()
+        form = userRegisterForm()
         context = {
             'form': form
         }
         return render(request, 'authentication.html', context)
 
     def post(self, request):
-        form = UserCreationForm(request.POST)
+        form = userRegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
@@ -50,7 +49,7 @@ def log_out(request):
 
 def log_in(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
+        form = loginUserForm(request, data=request.POST)
         if form.is_valid():
             name_user = form.cleaned_data.get("username")
             pass_user = form.cleaned_data.get('password')
@@ -64,5 +63,5 @@ def log_in(request):
         else:
             for msg in form.error_messages:
                 messages.error(request, form.error_messages[msg])
-    form = AuthenticationForm()
+    form = loginUserForm()
     return render(request, 'log_in.html', {'form': form})
