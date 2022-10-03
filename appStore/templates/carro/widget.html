@@ -7,7 +7,7 @@
   <thead>
     <tr>
       <th scope="col" class="text-muted">Producto</th>
-      <th scope="col"class="text-muted">Cantidad</th>
+      <th scope="col" class="text-muted">Cantidad</th>
       <th scope="col" class="text-muted">Acciones</th>
     </tr>
   </thead>
@@ -15,34 +15,52 @@
     {% if request.session.carro.items %} 
     {% for key, value in request.session.carro.items %}
     <tr>
-      <td>{{value.name_product}}</td> 
-      <td>{{value.amount}}</td> 
+      <td>{{value.name_product}}</td>
+      <td>{{value.amount}}</td>
       <td>
-        <a name="" class="btn btn-primary" href="{% url 'cart:agregar' value.id_product %}" role="button">+</a>
-        <a name="" class="btn btn-danger" href="{% url 'cart:delete_product_amount' value.id_product %}" role="button">-</a>
-        <br>
+        <a
+          name=""
+          class="btn btn-primary"
+          href="{% url 'cart:agregar' value.id_product %}"
+          role="button"
+          >+</a
+        >
+        <a
+          name=""
+          class="btn btn-danger"
+          href="{% url 'cart:delete_product_amount' value.id_product %}"
+          role="button"
+          >-</a
+        >
+        <br />
         {{value.price_product}}
       </td>
     </tr>
 
-    {% endfor %} 
-    {% else %}
-    <tr> 
+    {% endfor %} {% else %}
+    <tr>
       <td colspan="3">
-        <div class="alert alert-info text-center text-muted"> 
+        <div class="alert alert-info text-center text-muted">
           Carrito vacio.
         </div>
-        </td>
+      </td>
     </tr>
     {% endif %}
   </tbody>
   <tfoot>
     <tr>
-      <td colspan="3">
-        Total: {{total_import}}
-      </td>
+      <td colspan="3">Total: {{total_import}}</td>
     </tr>
     
+    {% if request.session.carro.items %}
+    <tr>
+      <td colspan="3" class="text-center">
+        <div class="d-grid gap-2">
+          <a href="{% url 'procesar_pedido' %}" class="btn btn-primary">COMPRAR</a>
+        </div>
+      </td>
+    </tr>
+    {% endif %}
+      
   </tfoot>
-
 </table>

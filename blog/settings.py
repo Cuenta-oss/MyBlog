@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'cartStore',
     'authApp',
     'crispy_forms',
+    'pedidosApp',
 ]
 
 MIDDLEWARE = [
@@ -147,4 +148,5 @@ EMAIL_HOST_PASSWORD = 'password'
 CRYSPY_TEMPLATE_PACK = 'bootstrap5'
 MESSAGE_TAGS = {
     errors_messages.ERROR: 'danger',
+    errors_messages.SUCCESS: 'success',
 }

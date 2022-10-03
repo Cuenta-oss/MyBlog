@@ -28,4 +28,5 @@ urlpatterns = [
     path('store/', include('appStore.urls')),
     path('cart/', include('cartStore.urls')),
     path('auth_user/', include('authApp.urls')),
+    path("procesar_pedido/", include('pedidosApp.urls')),
 ]

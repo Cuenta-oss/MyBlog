@@ -29,7 +29,14 @@
     </div>
     <div class="col-4">
       <div class="container" style="margin-top:50px;margin-bottom:50px;">
-        {% include 'carro/widget.html' %}
+        {% if request.user.is_authenticated %}
+          {% include 'carro/widget.html' %}
+        {% else %}
+        <div class="alert alert-danger" role="alert">
+          <p class="m-auto">Inicia sesión para hacer la compra</p>
+          <a class="btn btn-primary" href="{% url 'log_in' %}" >Login </a>
+        </div>
+        {% endif%}
       </div>
     </div>
 </section>
